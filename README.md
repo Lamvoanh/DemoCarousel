@@ -1,8 +1,10 @@
 # DemoCarousel
+
 ## Requirement
 Node JS v15.5.1 and NPM v7.3.0
 
 ## Setting up the project
+
 ### Create project folder and move to the project
 > mkdir DemoCarousel
 
@@ -71,23 +73,25 @@ module.exports = {
 }
 ````
 
-# Build and run project
+## Build and run project
 
 
-## Download the source code at
+### Download the source code at
 [https://github.com/Lamvoanh/DemoCarousel](https://github.com/Lamvoanh/DemoCarousel)
 
-## Move to DemoCarousel folder and install dependancy
+### Move to DemoCarousel folder and install dependancy
 > npm install
 
-## Start webpack server
+### Start webpack server
 > npm run start
 
-## Run on Browser with local url
+### Run on Browser with local url
 [localhost:8080](localhost:8080)
 
-# Usage Manual
-## Import and implement
+## Usage Manual
+
+
+### Import and implement
 ```javascript
 import MultiCarousel from '{path}/MultiCarousel'
 ...
@@ -104,10 +108,14 @@ import MultiCarousel from '{path}/MultiCarousel'
   ...
 </MultiCarousel>
 ```
-## Component Properties
+### Component Properties
 | Property      | Description   | Example   |
-| ------------- | ------------- | -------- |
+| - | - | -- |
 | activeIndex   | The index of element will be showed on the carousel. Start from 0. Defautl 0 | ```<MultiCarousel activeIndex={3}>...</MultiCarousel>``` |
 | styleProps    | The property object will apply on the main tag of the carousel such as **width**, **height** and so on.    | ```<MultiCarousel styleProps={{width: '100%', height:'100%'}}>...</MultiCarousel> ```|
 | showBtn   | Show navigator button to naviget the carousel. Value **true** or **false** | ```<MultiCarousel showBtn={true}>...</MultiCarousel>``` |
-# Screen shot
+
+### Demo
+[https://democarousel.herokuapp.com/](https://democarousel.herokuapp.com/)
+
+### Screen shot
