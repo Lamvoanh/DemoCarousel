@@ -13,7 +13,7 @@
   white-space: nowrap;
 }
 
-.carousel .right-arrow {
+.carousel .right-btn {
   position: absolute;
   top: 40%;
   right: 20px;
@@ -24,7 +24,7 @@
   user-select: none;
 }
 
-.carousel .left-arrow {
+.carousel .left-btn {
   position: absolute;
   top: 40%;
   left: 20px;
@@ -125,4 +125,8 @@
 
 .carousel .thumb-slide .thumb-item * {
   object-fit: contain;
+}
+
+.hide {
+  display: none;
 }

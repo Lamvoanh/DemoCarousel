@@ -109,4 +109,5 @@ import MultiCarousel from '{path}/MultiCarousel'
 | ------------- | ------------- | -------- |
 | activeIndex   | The index of element will be showed on the carousel. Start from 0. Defautl 0 | ```<MultiCarousel activeIndex={3}>...</MultiCarousel>``` |
 | styleProps    | The property object will apply on the main tag of the carousel such as **width**, **height** and so on.    | ```<MultiCarousel styleProps={{width: '100%', height:'100%'}}>...</MultiCarousel> ```|
+| showBtn   | Show navigator button to naviget the carousel. Value **true** or **false** | ```<MultiCarousel showBtn={true}>...</MultiCarousel>``` |
 # Screen shot

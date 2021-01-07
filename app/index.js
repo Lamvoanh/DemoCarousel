@@ -7,7 +7,7 @@ import MultiCarousel from './components/MultiCarousel'
 class App extends React.Component{
     render(){
         return (
-          <MultiCarousel styleProps={{width:'calc(100vw - 16px)', height:'calc(100vh - 66px)'}}>
+          <MultiCarousel showBtn={true} styleProps={{width:'calc(100vw - 16px)', height:'calc(100vh - 66px)'}}>
             <div><img width="100%" height="100%" src="https://wallpapercave.com/wp/BQ6IevO.jpg"/></div>
             <div><img width="100%" height="100%" src="https://3.bp.blogspot.com/-1-EI-hYRRqc/Xd2zFunH65I/AAAAAAAARyU/9lC8yiPTk04zG8t5lIbIc3A-tIwqKxBvwCLcBGAsYHQ/w914-h514-p-k-no-nu/sunrise-illustration-digital-art-uhdpaper.com-4K-4.1963-wp.thumbnail.jpg"/></div>
             <div><img width="100%" height="100%" src="https://free4kwallpapers.com/uploads/originals/2020/09/02/live-wallpaper-space-fight.jpg"/></div>

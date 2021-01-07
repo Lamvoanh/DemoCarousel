@@ -17,6 +17,7 @@ class MultiCarousel extends React.Component {
       activeIndex,
       children,
       styleProps,
+      showBtn
     } = this.props;
 
     // init component variable
@@ -40,6 +41,7 @@ class MultiCarousel extends React.Component {
       items: children,
       activeIndex: activeIdx,
       styleProps: styleProps,
+      showBtn: showBtn || true,
       isSwipe: false,
       startSwipePoint: null,
       endSwipePoint: null,
@@ -145,8 +147,7 @@ class MultiCarousel extends React.Component {
       items,
       activeIndex,
       styleProps,
-      prevIndex,
-      nextIndex
+      showBtn,
     } = this.state;
 
     if(this.isEmpty) {
@@ -155,8 +156,8 @@ class MultiCarousel extends React.Component {
 
     return (
       <div className='carousel' style={styleProps}>
-        <BsChevronCompactLeft className='left-arrow' onClick={this.prevItem} />
-        <BsChevronCompactRight className='right-arrow' onClick={this.nextItem} />
+        <BsChevronCompactLeft className={showBtn ? 'left-btn' : 'left-btn hide'} onClick={this.prevItem} />
+        <BsChevronCompactRight className={showBtn ? 'right-btn' : 'right-btn hide'} onClick={this.nextItem} />
         <section className='main-slider'
           onTouchStart={this.onTouchStart}
           onTouchMove={this.onTouchMove}
