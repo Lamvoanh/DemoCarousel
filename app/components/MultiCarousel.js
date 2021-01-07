@@ -72,7 +72,7 @@ class MultiCarousel extends React.Component {
   activeItem(index) {
     this.setState({activeIndex: index});
     // pause playing video
-    $('video').trigger('pause');
+    setTimeout(() => {$('video').trigger('pause');}, 500);
   }
 
   // view next item
@@ -131,6 +131,7 @@ class MultiCarousel extends React.Component {
 
   // handle swipe by mouse - when mouse down and move
   onMouseMove(mouseMoveEvent) {
+    mouseMoveEvent.preventDefault();
     this.setState({
       isSwipe: true,
       endSwipePoint: mouseMoveEvent.clientX,
@@ -138,7 +139,8 @@ class MultiCarousel extends React.Component {
   }
 
   // handle mouse down and swipe, detemine the swipe direction
-  onMouseUp() {
+  onMouseUp(mouseUpEvent) {
+    mouseUpEvent.preventDefault();
     this.onTouchEnd();
   }
 
