@@ -16,16 +16,27 @@ Node JS v15.5.1 and NPM v7.3.0
 
 ### Install development dependency
 > npm install --save-dev @babel/core
+
 > npm install --save-dev @babel/preset-env
+
 > npm install --save-dev @babel/preset-react
+
 > npm install --save-dev webpack
+
 > npm install --save-dev webpack-cli
+
 > npm install --save-dev webpack-dev-server
+
 > npm install --save-dev babel-loader
+
 > npm install --save-dev css-loader
+
 > npm install --save-dev style-loader
+
 > npm install --save-dev html-webpack-plugin
+
 > npm install --save-dev react-icons
+
 > npm install --save-dev jquery
 
 ### Create webpack.config.js
@@ -93,3 +104,9 @@ import MultiCarousel from '{path}/MultiCarousel'
   ...
 </MultiCarousel>
 ```
+## Component Properties
+| Property      | Description   | Example   |
+| ------------- | ------------- | -------- |
+| activeIndex   | The index of element will be showed on the carousel. Start from 0. Defautl 0 | ```<MultiCarousel activeIndex={3}>...</MultiCarousel>``` |
+| styleProps    | The property object will apply on the main tag of the carousel such as **width**, **height** and so on.    | ```<MultiCarousel styleProps={{width: '100%', height:'100%'}}>...</MultiCarousel> ```|
+# Screen shot
