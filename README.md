@@ -119,3 +119,6 @@ import MultiCarousel from '{path}/MultiCarousel'
 [https://democarousel.herokuapp.com/](https://democarousel.herokuapp.com/)
 
 ### Screen shot
+![PC](https://user-images.githubusercontent.com/42895365/103852633-5f8f2a80-5100-11eb-9b28-8c3329ef6c8d.png)
+![IOS](https://user-images.githubusercontent.com/42895365/103852914-08d62080-5101-11eb-9d8c-3578f9c11062.jpg)
+![Android](https://user-images.githubusercontent.com/42895365/103853374-02947400-5102-11eb-8b82-ac7ffef06215.png)
