@@ -77,7 +77,7 @@ module.exports = {
 
 
 ### Download the source code at
-[https://github.com/Lamvoanh/DemoCarousel](https://github.com/Lamvoanh/DemoCarousel)
+[https://github.com/Lamvoanh/DemoCarousel.git](https://github.com/Lamvoanh/DemoCarousel.git)
 
 ### Move to DemoCarousel folder and install dependancy
 > npm install
@@ -90,6 +90,11 @@ module.exports = {
 
 ## Usage Manual
 
+### Functionality
+- Support navigator the carousel by the navigator button
+- Support navigator the carousel by mouse down and swipe on computers
+- Support navigator the carousel by touch swipe on mobile devices
+- Support jumping to an item by click on its thumbnail item on the thumbnail bar
 
 ### Import and implement
 ```javascript
