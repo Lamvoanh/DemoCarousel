@@ -50,7 +50,7 @@ class Thumbnail extends React.Component {
     $(".thumb-slider").animate({
       scrollLeft: (index - adjustment + 0.5) * itemWidth
     },
-    300);
+    100);
   }
 
   onScrollLeft() {
