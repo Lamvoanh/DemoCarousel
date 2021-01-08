@@ -7,22 +7,26 @@ import MultiCarousel from './components/MultiCarousel'
 class App extends React.Component{
     render(){
         return (
-          <MultiCarousel showBtn={true} styleProps={{width:'calc(100vw - 16px)', height:'calc(100vh - 66px)'}}>
+          <MultiCarousel showBtn={true} styleProps={{width:'calc(100vw - 20px)', height:'calc(100vh - 150px)'}}>
             <div><img width="100%" height="100%" src="https://wallpapercave.com/wp/BQ6IevO.jpg"/></div>
+            <div>
+              <div style={{width:'100%', height: '100%', overflow: 'auto'}}>
+                <p style={{width:'100%'}}>This is a directory of websites that <strong>primarily stick with
+simple, marked up, hyperlinked text</strong>. I appreciate these sites
+because they load quickly, scroll smoothly, spare my battery, are more
+compact, and lack the usual nonsense that infects many websites.</p>
+                <div><img width="100%" height="100%" src="https://free4kwallpapers.com/uploads/originals/2020/09/02/live-wallpaper-space-fight.jpg"/></div>
+              </div>
+            </div>
             <div><img width="100%" height="100%" src="https://3.bp.blogspot.com/-1-EI-hYRRqc/Xd2zFunH65I/AAAAAAAARyU/9lC8yiPTk04zG8t5lIbIc3A-tIwqKxBvwCLcBGAsYHQ/w914-h514-p-k-no-nu/sunrise-illustration-digital-art-uhdpaper.com-4K-4.1963-wp.thumbnail.jpg"/></div>
             <div><img width="100%" height="100%" src="https://free4kwallpapers.com/uploads/originals/2020/09/02/live-wallpaper-space-fight.jpg"/></div>
             <div><img width="100%" height="100%" src="https://photos.smugmug.com/Wallpapers/i-Lw6hnGq/0/f91236c1/O/HDRshooter-4K-wallpaper-066-3840x2160.jpg"/></div>
-            <div><img width="100%" height="100%" src="https://images.unsplash.com/photo-1546768292-fb12f6c92568?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"/></div>
-            <div><img width="100%" height="100%" src="https://images.unsplash.com/photo-1501446529957-6226bd447c46?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1489&q=80"/></div>
-            <div>
-              <video width="100%" height="100%" controls type="video/mp4" src="https://www.w3schools.com/tags/movie.mp4"></video>
-            </div>
             <div>
               <video width="100%" height="100%" controls type="video/mp4" src="https://media.istockphoto.com/videos/french-bulldog-wearing-face-mask-video-id1224763625"></video>
             </div>
             <div>
               <div style={{width:'100%', height: '100%', overflow: 'auto'}}>
-                <p style={{width:'100%', flexWrap: 'wrap'}}>Workers are allowed to be out in the Queensland community and contact tracing is underway. Queensland’s Chief Health Officer Jeannette Young has urged anyone in<strong> Sunnybank Hills, Calamvale and Algester</strong> to get tested if they have symptoms.</p>
+                <p style={{width:'100%'}}>Workers are allowed to be out in the Queensland community and contact tracing is underway. Queensland’s Chief Health Officer Jeannette Young has urged anyone in<strong> Sunnybank Hills, Calamvale and Algester</strong> to get tested if they have symptoms.</p>
                 <p style={{width:'100%'}}>She was infectious from January 2, and was out and about in Brisbane until January 6.&nbsp;</p>
                 <p style={{width:'100%'}}>Wednesday marked 113 days without community transmission of COVID-19 in Queensland.</p>
                 <p style={{width:'100%'}}>Meanwhile, NSW and Victoria have recorded astonishing coronavirus results this morning from a massive amount of tests.</p>

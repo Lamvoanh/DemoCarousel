@@ -95,6 +95,7 @@ module.exports = {
 - Support navigator the carousel by mouse down and swipe on computers
 - Support navigator the carousel by touch swipe on mobile devices
 - Support jumping to an item by click on its thumbnail item on the thumbnail bar
+- Support finger-following when draft on computers or swipe on mobile devices
 
 ### Import and implement
 ```javascript

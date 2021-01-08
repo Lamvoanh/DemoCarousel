@@ -10,7 +10,7 @@ class Thumbnail extends React.Component {
     super(props);
     const {
       activeIndex,
-      activeItem
+      doActiveItem
     } = this.props;
 
     // binding component fucntion
@@ -20,7 +20,7 @@ class Thumbnail extends React.Component {
     // init component state
     this.state = {
       activeIndex: activeIndex,
-      activeItem: activeItem,
+      doActiveItem: doActiveItem,
       isSwipe: false,
       startSwipePoint: null,
       endSwipePoint: null,
@@ -42,9 +42,10 @@ class Thumbnail extends React.Component {
 
   // adjust scroll of the thumbnail bar when view next of previous items
   adjustScroll(index) {
-    let adjustment =  $(".thumb-slider").width() / 105 / 2;
+    let itemWidth = $(".thumb-slide").width() + parseInt($(".thumb-slide").css('marginTop'));
+    let adjustment =  $(".thumb-slider").width() / itemWidth / 2;
     $(".thumb-slider").animate({
-      scrollLeft: (index - adjustment + 0.5) * 105
+      scrollLeft: (index - adjustment + 0.5) * itemWidth
     },
     300);
   }
@@ -54,7 +55,7 @@ class Thumbnail extends React.Component {
     if (this.state.activeIndex === key) {
       return;
     };
-    if(typeof  this.state.activeItem  === 'function') {
+    if(typeof this.state.doActiveItem  === 'function') {
       this.state.activeItem(key);
     }
     this.setState({activeIndex: key});

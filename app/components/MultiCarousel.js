@@ -20,41 +20,58 @@ class MultiCarousel extends React.Component {
       showBtn
     } = this.props;
 
-    // init component variable
-    this.isEmpty = children.length <= 0;
-    this.itemLength = children.length;
-
     // binding component fucntion
-    this.activeItem = this.activeItem.bind(this);
+    this.doActiveItem = this.doActiveItem.bind(this);
     this.nextItem = this.nextItem.bind(this);
     this.prevItem = this.prevItem.bind(this);
+    this.calcCarouselTransform = this.calcCarouselTransform.bind(this);
+    this.calcItemTransform = this.calcItemTransform.bind(this);
     this.onTouchStart = this.onTouchStart.bind(this);
     this.onTouchMove = this.onTouchMove.bind(this);
     this.onTouchEnd = this.onTouchEnd.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
+    this.dragItem = this.dragItem.bind(this);
 
-    let activeIdx = !activeIndex ? 0 : activeIndex % this.itemLength;
+
+    let activeIdx = !activeIndex ? 0 : activeIndex;
     // init component state
+    let items = React.Children.toArray(children);
+
     this.state = {
-      items: children,
+      items: items,
       activeIndex: activeIdx,
       styleProps: styleProps,
-      showBtn: showBtn || true,
-      isSwipe: false,
-      startSwipePoint: null,
-      endSwipePoint: null,
+      showBtn: items.length <= 1 ? false : showBtn || true,
     };
+
+    this.isSwipe = false;
+    this.startSwipePoint = 0;
+    this.endSwipePoint = 0;
+  }
+
+  // When compnent mounted
+  componentDidMount() {
+    this.calcItemTransform();
+    window.addEventListener("resize", this.calcItemTransform.bind(this));
+  }
+
+  // When compnent will unmounted
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.calcItemTransform.bind(this));
   }
 
   // When compnent updated
   componentDidUpdate(prevProps) {
     // If update children
     if(prevProps.children !== this.props.children) {
-      this.setState({items: this.props.children});
-      this.isEmpty = this.props.children.length <= 0;
-      this.itemLength = this.props.children.length;
+      let items = React.Children.toArray(children);
+      this.setState({
+        items: items,
+        showBtn: items.length <= 1 ? false : showBtn || true,
+      });
     }
 
     // if update active item
@@ -66,11 +83,16 @@ class MultiCarousel extends React.Component {
     if(prevProps.prevProps !== this.props.prevProps) {
       this.setState({prevProps: this.props.prevProps});
     }
+    this.calcItemTransform();
   }
 
   // view an item by index
-  activeItem(index) {
-    this.setState({activeIndex: index});
+  doActiveItem(index) {
+    this.setState({
+      activeIndex: index,
+      startSwipePoint: 0,
+      endSwipePoint: 0,
+    });
     // pause playing video
     setTimeout(() => {$('video').trigger('pause');}, 500);
   }
@@ -78,64 +100,91 @@ class MultiCarousel extends React.Component {
   // view next item
   // if it is overflow the list items, move to the first
   nextItem() {
-    let newIndex = (this.state.activeIndex + 1) % this.itemLength;
-    this.activeItem(newIndex);
+    let newIndex = (this.state.activeIndex + 1);
+    this.doActiveItem(newIndex);
   }
 
   // view previous item
   // if it is overflow the list items, move to the last
   prevItem() {
-    let newIndex = (this.state.activeIndex - 1 + this.itemLength) % this.itemLength;
-    this.activeItem(newIndex);
+    let newIndex = (this.state.activeIndex - 1);
+    this.doActiveItem(newIndex);
+  }
+
+  // calculate the transform for the carousel
+  calcCarouselTransform(activeIndex) {
+    let rotateY = activeIndex / this.state.items.length * -360;
+    return {transform: 'rotateY(' + rotateY +'deg)'};
+  }
+  // calculate the transform for each item
+  calcItemTransform() {
+    let itemLength = this.state.items.length;
+    $('.carousel .main-slider .slide').each(function(index, elm ) {
+      let rotateY = index / itemLength * 360;
+      let translateZ = ($('.carousel .main-slider').width() / 2) / Math.tan(Math.PI / itemLength);
+      elm.style.transform = 'rotateY(' + rotateY +'deg) translateZ( '+ translateZ + 'px)';
+    });
+  }
+
+  // The item flow the swiping when mouse down and drag or when touch swiping
+  dragItem() {
+    let itemLength = this.state.items.length;
+    let r = ($('.carousel .main-slider').width() / 2) / Math.tan(Math.PI / itemLength);
+    let rotateY = this.state.activeIndex / itemLength * -360;
+    rotateY -= (this.startSwipePoint - this.endSwipePoint)*180 / (Math.PI * r)
+    $('.carousel .main-slider').css('transition', 'transform 1ms');
+    $('.carousel .main-slider').css('transform', 'rotateY(' + rotateY +'deg)');
   }
 
   // handle touch event
   onTouchStart(event) {
-    this.setState({
-      startSwipePoint: event.targetTouches[0].screenX,
-    });
+    this.isSwipe = true;
+    this.startSwipePoint = event.targetTouches[0].screenX;
+    this.endSwipePoint = event.targetTouches[0].screenX;
   }
 
   // handle touch move event
   onTouchMove(event) {
-    this.setState({
-      isSwipe: true,
-      endSwipePoint: event.targetTouches[0].screenX,
-    });
+    if (!this.isSwipe) {
+      return;
+    }
+    event.preventDefault();
+    this.endSwipePoint = event.targetTouches[0].screenX;
+    this.dragItem();
   }
 
   // handle touch and swipe, detemine the swipe direction
   onTouchEnd() {
-    const { isSwipe, startSwipePoint, endSwipePoint } = this.state;
-
-    if (isSwipe) {
-      if (startSwipePoint < endSwipePoint) {
+    $('.carousel .main-slider').css('transition', 'transform 500ms');
+    if (this.isSwipe) {
+      if (this.startSwipePoint < this.endSwipePoint) {
         // if swipe from left to right
         this.prevItem();
-      } else if (startSwipePoint > endSwipePoint) {
+      } else if (this.startSwipePoint > this.endSwipePoint) {
         // if swipe from right to left
         this.nextItem();
       }
     }
 
-    this.setState({isSwipe: false});
+    this.isSwipe = false;
   }
 
   // handle swipe by mouse - when mouse down
   onMouseDown(mouseDownEvent) {
     mouseDownEvent.preventDefault();
-    this.setState({
-      startSwipePoint: mouseDownEvent.clientX,
-    });
+    this.isSwipe = true;
+    this.startSwipePoint = mouseDownEvent.clientX;
+    this.endSwipePoint = mouseDownEvent.clientX;
   }
 
   // handle swipe by mouse - when mouse down and move
   onMouseMove(mouseMoveEvent) {
+    if (!this.isSwipe) {
+      return;
+    }
     mouseMoveEvent.preventDefault();
-    this.setState({
-      isSwipe: true,
-      endSwipePoint: mouseMoveEvent.clientX,
-    });
+    this.endSwipePoint = mouseMoveEvent.clientX;
+    this.dragItem();
   }
 
   // handle mouse down and swipe, detemine the swipe direction
@@ -144,16 +193,24 @@ class MultiCarousel extends React.Component {
     this.onTouchEnd();
   }
 
+  onMouseLeave(mouseLeaveEvent) {
+    mouseLeaveEvent.preventDefault();
+    this.onTouchEnd();
+  }
+
+
   render() {
     const {
       items,
       activeIndex,
       styleProps,
       showBtn,
+      startSwipePoint,
+      endSwipePoint,
     } = this.state;
 
-    if(this.isEmpty) {
-      return;
+    if(items.length <= 0) {
+      return '';
     }
 
     return (
@@ -161,17 +218,19 @@ class MultiCarousel extends React.Component {
         <BsChevronCompactLeft className={showBtn ? 'left-btn' : 'left-btn hide'} onClick={this.prevItem} />
         <BsChevronCompactRight className={showBtn ? 'right-btn' : 'right-btn hide'} onClick={this.nextItem} />
         <section className='main-slider'
+          style={this.calcCarouselTransform(activeIndex)}
           onTouchStart={this.onTouchStart}
           onTouchMove={this.onTouchMove}
           onTouchEnd={this.onTouchEnd}
           onMouseDown={this.onMouseDown}
           onMouseMove={this.onMouseMove}
-          onMouseUp={this.onMouseUp}>
+          onMouseUp={this.onMouseUp}
+          onMouseLeave={this.onMouseLeave}
+          >
           {items.map((item, index) => {
             return (
               <div
-                style={{transform: 'translate3d(' + (index-activeIndex)*100 +'%, 0px, 0px)'}}
-                className={index === activeIndex ? 'slide active' : 'slide'}
+                className={'slide'}
                 key={index}
               >
                 <Item item={item} itemClass={'item'} />
@@ -179,7 +238,7 @@ class MultiCarousel extends React.Component {
             );
           })}
         </section>
-        <Thumbnail items={items} activeIndex={this.state.activeIndex} activeItem={this.activeItem} />
+        <Thumbnail items={items} activeIndex={this.state.activeIndex % items.length} doActiveItem={this.doActiveItem} />
       </div>
     );
   }

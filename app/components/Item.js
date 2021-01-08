@@ -13,6 +13,10 @@ class Item extends React.Component {
       item,
       itemClass
     } = this.props;
+    if(!item) {
+      return '';
+    }
+
     return (
       React.cloneElement(item, {className: itemClass})
     );

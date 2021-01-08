@@ -1,16 +1,8 @@
 .carousel {
   position: relative;
-}
-
-.carousel .main-slider {
-  position: relative;
-  height: calc(100% - 65px);
-  width: 100%;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
   overflow: hidden;
-  white-space: nowrap;
+  margin: auto;
+  touch-action: none;
 }
 
 .carousel .right-btn {
@@ -24,6 +16,10 @@
   user-select: none;
 }
 
+.carousel .right-arrow:hover, .carousel .left-arrow:hover {
+  color: blue;
+}
+
 .carousel .left-btn {
   position: absolute;
   top: 40%;
@@ -34,29 +30,33 @@
   cursor: pointer;
   user-select: none;
 }
-.carousel .right-arrow:hover, .carousel .left-arrow:hover {
-  color: blue;
+
+.carousel .main-slider {
+  position: relative;
+  height: calc(100% - 65px);
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  transform-style: preserve-3d;
+  transition: transform 1ms;
+  touch-action: none;
 }
 
 /* Css for the carousel */
 .carousel .main-slider .slide {
-  width: 100%;
+  background: white;
+  width: calc(100% - 3px);
   height: 100%;
-  border-radius: 10px;
-  opacity: 1;
   position: absolute;
-  transition: all 500ms ease-out 0ms;
   padding: 3px 2px 3px 2px;
-}
-
-.carousel .main-slider .slide.active {
-  position: relative;
+  touch-action: none;
 }
 
 .carousel .main-slider .slide .item {
   width: 100%;
   height: calc(100% - 10px);
-  border-radius: 10px;
   overflow: hidden;
   justify-content: center;
   align-items: center;
@@ -73,7 +73,7 @@
 
 /* Css for the thumbnail bar */
 .carousel .thumb-slider-wrap {
-  height: 65px;
+  height: 75px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -86,9 +86,13 @@
   align-content: center;
   display: inline-flex;
   bottom: 0;
-  grid-column-gap: 5px;
   overflow-y: auto;
   margin: 0 auto;
+
+}
+
+/* Hide scrollbar for Firefox, E and Edge */
+.carousel .thumb-slider-wrap .thumb-slider {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
@@ -99,12 +103,11 @@
 }
 
 .carousel .thumb-slider-wrap .thumb-slide {
-  width: 100px;
-  height: 60px;
+  height: 50px;
   border: 1px solid #ddd;
   border-radius: 4px;
   opacity: 0.5;
-  display: inline-block;
+  margin: 2px;
 }
 
 .carousel .thumb-slider-wrap .thumb-slide:hover {
@@ -117,7 +120,7 @@
 }
 
 .carousel .thumb-slider-wrap .thumb-slide .thumb-item {
-  width: 100px;
+  width: 80px;
   height: 100%;
   overflow: hidden;
   pointer-events:none;
