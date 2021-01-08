@@ -7,7 +7,7 @@ import MultiCarousel from './components/MultiCarousel'
 class App extends React.Component{
     render(){
         return (
-          <MultiCarousel showBtn={true} styleProps={{width:'calc(100vw - 20px)', height:'calc(100vh - 150px)'}}>
+          <MultiCarousel id="app" showBtn={true} styleProps={{width:'calc(100% - 10px)', height:'calc(100vh - 150px)'}}>
             <div><img width="100%" height="100%" src="https://wallpapercave.com/wp/BQ6IevO.jpg"/></div>
             <div>
               <div style={{width:'100%', height: '100%', overflow: 'auto'}}>

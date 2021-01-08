@@ -2,13 +2,15 @@
  * this component display the thumbnail of the carousel
  */
 import React from 'react';
-import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
+import { RiArrowLeftSFill, RiArrowRightSFill } from 'react-icons/ri';
 import Item from './Item';
 import $ from 'jquery';
+import './thumbnail.css';
 
 class Thumbnail extends React.Component {
   constructor(props) {
     super(props);
+
     const {
       activeIndex,
       doActiveItem
@@ -19,6 +21,7 @@ class Thumbnail extends React.Component {
     this.adjustScroll = this.adjustScroll.bind(this);
     this.onScrollLeft = this.onScrollLeft.bind(this);
     this.onScrollRight = this.onScrollRight.bind(this);
+    this.onStopScroll = this.onStopScroll.bind(this);
 
     // init component state
     this.state = {
@@ -28,6 +31,8 @@ class Thumbnail extends React.Component {
       startSwipePoint: null,
       endSwipePoint: null,
     };
+
+    this.timer = null;
   }
   // When compnent mounted
   componentDidMount() {
@@ -45,8 +50,8 @@ class Thumbnail extends React.Component {
 
   // adjust scroll of the thumbnail bar when view next of previous items
   adjustScroll(index) {
-    let itemWidth = $(".thumb-slide").width() + parseInt($(".thumb-slide").css('marginLeft'));
-    let adjustment =  $(".thumb-slider").width() / itemWidth / 2;
+    let itemWidth = $(".thumb-slide").outerWidth() + 2*parseInt($(".thumb-slide").css('marginLeft'));
+    let adjustment =  $(".thumb-slider").outerWidth() / itemWidth / 2;
     $(".thumb-slider").animate({
       scrollLeft: (index - adjustment + 0.5) * itemWidth
     },
@@ -54,19 +59,25 @@ class Thumbnail extends React.Component {
   }
 
   onScrollLeft() {
-    let itemWidth = $(".thumb-slide").width() + 2 * parseInt($(".thumb-slide").css('marginLeft'));
+    let itemWidth = $(".thumb-slide").outerWidth() + 2*parseInt($(".thumb-slide").css('marginLeft'));
     $(".thumb-slider").animate({
       scrollLeft: $(".thumb-slider").scrollLeft() - itemWidth
     },
-    100);
+    1);
+    this.timer = setTimeout(this.onScrollLeft, 50);
   }
 
   onScrollRight() {
-    let itemWidth = $(".thumb-slide").width() + 2 * parseInt($(".thumb-slide").css('marginLeft'));
+    let itemWidth = $(".thumb-slide").outerWidth() + 2*parseInt($(".thumb-slide").css('marginLeft'));
     $(".thumb-slider").animate({
       scrollLeft: $(".thumb-slider").scrollLeft() + itemWidth
     },
-    100);
+    1);
+    this.timer = setTimeout(this.onScrollRight, 50);
+  }
+
+  onStopScroll() {
+    clearTimeout(this.timer);
   }
 
   // display the click item on the carousel
@@ -88,9 +99,9 @@ class Thumbnail extends React.Component {
     } = this.state;
     return (
       <div className='thumb-slider-wrap'>
-      <BsChevronCompactLeft className={'thumb-left-btn'}
+      <RiArrowLeftSFill className={'thumb-left-btn'}
         onMouseDown={this.onScrollLeft}
-        onTouchStart={this.onScrollLeft}/>
+        onMouseUp={this.onStopScroll}/>
       <div className='thumb-slider'>
         {items.map((item, index) => {
           return (
@@ -104,9 +115,9 @@ class Thumbnail extends React.Component {
           );
         })}
       </div>
-      <BsChevronCompactRight className={'thumb-right-btn'}
+      <RiArrowRightSFill className={'thumb-right-btn'}
         onMouseDown={this.onScrollRight}
-        onTouchStart={this.onScrollRight}/>
+        onMouseUp={this.onStopScroll}/>
       </div>
     );
   };

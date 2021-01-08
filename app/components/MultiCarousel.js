@@ -8,7 +8,7 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import Item from './Item';
 import Thumbnail from './Thumbnail';
 import $ from 'jquery';
-import './index.css';
+import './multi-carousel.css';
 
 class MultiCarousel extends React.Component {
   constructor(props) {
@@ -121,7 +121,7 @@ class MultiCarousel extends React.Component {
     let itemLength = this.state.items.length;
     $('.carousel .main-slider .slide').each(function(index, elm ) {
       let rotateY = index / itemLength * 360;
-      let translateZ = ($('.carousel .main-slider').width() / 2) / Math.tan(Math.PI / itemLength);
+      let translateZ = ($('.carousel .main-slider .slide').width() / 2) / Math.tan(Math.PI / itemLength);
       elm.style.transform = 'rotateY(' + rotateY +'deg) translateZ( '+ translateZ + 'px)';
     });
   }
@@ -129,7 +129,7 @@ class MultiCarousel extends React.Component {
   // The item flow the swiping when mouse down and drag or when touch swiping
   dragItem() {
     let itemLength = this.state.items.length;
-    let r = ($('.carousel .main-slider').width() / 2) / Math.tan(Math.PI / itemLength);
+    let r = ($('.carousel .main-slider .slide').width() / 2) / Math.tan(Math.PI / itemLength);
     let rotateY = this.state.activeIndex / itemLength * -360;
     rotateY -= (this.startSwipePoint - this.endSwipePoint)*180 / (Math.PI * r)
     $('.carousel .main-slider').css('transition', 'transform 1ms');
