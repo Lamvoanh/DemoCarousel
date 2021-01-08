@@ -65,8 +65,8 @@ module.exports = {
         })
     ],
     devServer: {
-    host: '0.0.0.0',//your ip address
-    port: 8080,
+    host: '0.0.0.0', // to remote access by ip
+    port: process.env.PORT || 8080,
     disableHostCheck: true,
     }
 
