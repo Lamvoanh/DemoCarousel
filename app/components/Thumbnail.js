@@ -56,7 +56,7 @@ class Thumbnail extends React.Component {
       return;
     };
     if(typeof this.state.doActiveItem  === 'function') {
-      this.state.activeItem(key);
+      this.state.doActiveItem(key);
     }
     this.setState({activeIndex: key});
   }
