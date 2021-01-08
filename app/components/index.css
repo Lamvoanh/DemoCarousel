@@ -127,7 +127,7 @@
 }
 
 .carousel .thumb-slider-wrap .thumb-slider .thumb-slide .thumb-item * {
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .carousel .thumb-slider-wrap .thumb-left-btn {
