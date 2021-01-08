@@ -5,6 +5,17 @@
   touch-action: none;
 }
 
+.carousel .left-btn {
+  position: absolute;
+  top: 40%;
+  left: 20px;
+  font-size: 5rem;
+  color: #000;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+}
+
 .carousel .right-btn {
   position: absolute;
   top: 40%;
@@ -16,19 +27,8 @@
   user-select: none;
 }
 
-.carousel .right-arrow:hover, .carousel .left-arrow:hover {
+.carousel .right-btn:hover, .carousel .left-btn:hover {
   color: blue;
-}
-
-.carousel .left-btn {
-  position: absolute;
-  top: 40%;
-  left: 20px;
-  font-size: 5rem;
-  color: #000;
-  z-index: 10;
-  cursor: pointer;
-  user-select: none;
 }
 
 .carousel .main-slider {
@@ -102,7 +102,7 @@
   display: none;
 }
 
-.carousel .thumb-slider-wrap .thumb-slide {
+.carousel .thumb-slider-wrap .thumb-slider .thumb-slide {
   height: 50px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -110,24 +110,54 @@
   margin: 2px;
 }
 
-.carousel .thumb-slider-wrap .thumb-slide:hover {
+.carousel .thumb-slider-wrap .thumb-slider .thumb-slide:hover {
   box-shadow: 0 0 3px 2px rgba(0, 150, 200, 0.5);
 }
 
-.carousel .thumb-slider-wrap .thumb-slide.active {
+.carousel .thumb-slider-wrap .thumb-slider .thumb-slide.active {
   opacity: 1;
   box-shadow: 0 0 3px 2px rgba(0, 150, 200, 0.5);
 }
 
-.carousel .thumb-slider-wrap .thumb-slide .thumb-item {
+.carousel .thumb-slider-wrap .thumb-slider .thumb-slide .thumb-item {
   width: 80px;
   height: 100%;
   overflow: hidden;
   pointer-events:none;
 }
 
-.carousel .thumb-slide .thumb-item * {
+.carousel .thumb-slider-wrap .thumb-slider .thumb-slide .thumb-item * {
   object-fit: contain;
+}
+
+.carousel .thumb-slider-wrap .thumb-left-btn {
+  font-size: 4rem;
+  color: #000;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+  width: 35px;
+  height: 55px;
+  background: #17a2b8;
+  border-radius: 4px;
+  margin: 5px auto;
+}
+
+.carousel .thumb-slider-wrap .thumb-right-btn {
+  font-size: 4rem;
+  color: #000;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+  width: 35px;
+  height: 55px;
+  background: #17a2b8;
+  border-radius: 4px;
+  margin: 5px auto;
+}
+
+.carousel .thumb-slider-wrap .thumb-right-btn:hover, .carousel .thumb-slider-wrap .thumb-left-btn:hover {
+  color: blue;
 }
 
 .hide {
