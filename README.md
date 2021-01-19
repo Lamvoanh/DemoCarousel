@@ -37,9 +37,7 @@ Node JS v15.5.1 and NPM v7.3.0
 
 > npm install --save-dev html-webpack-plugin
 
-> npm install --save-dev react-icons
-
-> npm install --save-dev jquery
+> npm install --save-dev url-loader
 
 ### Create webpack.config.js
 ```javascript
@@ -65,8 +63,8 @@ module.exports = {
         })
     ],
     devServer: {
-    host: '0.0.0.0',//your ip address
-    port: 8080,
+    host: '0.0.0.0', // to remote access by ip
+    port: process.env.PORT || 8080,
     disableHostCheck: true,
     }
 

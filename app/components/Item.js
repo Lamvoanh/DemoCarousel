@@ -13,6 +13,7 @@ class Item extends React.Component {
       item,
       itemClass
     } = this.props;
+
     if(!item) {
       return '';
     }

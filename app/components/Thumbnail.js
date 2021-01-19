@@ -2,10 +2,10 @@
  * this component display the thumbnail of the carousel
  */
 import React from 'react';
-import { RiArrowLeftSFill, RiArrowRightSFill } from 'react-icons/ri';
 import Item from './Item';
-import $ from 'jquery';
 import './thumbnail.css';
+import arrowL from './imgs/thumb-arrow-l.png';
+import arrowR from './imgs/thumb-arrow-r.png';
 
 class Thumbnail extends React.Component {
   constructor(props) {
@@ -41,7 +41,6 @@ class Thumbnail extends React.Component {
 
   // When compnent updated
   componentDidUpdate(prevProps) {
-
     if(this.state.activeIndex !== this.props.activeIndex) {
       this.setState({activeIndex: this.props.activeIndex});
       this.adjustScroll(this.props.activeIndex);
@@ -50,29 +49,33 @@ class Thumbnail extends React.Component {
 
   // adjust scroll of the thumbnail bar when view next of previous items
   adjustScroll(index) {
-    let itemWidth = $(".thumb-slide").outerWidth() + 2*parseInt($(".thumb-slide").css('marginLeft'));
-    let adjustment =  $(".thumb-slider").outerWidth() / itemWidth / 2;
-    $(".thumb-slider").animate({
-      scrollLeft: (index - adjustment + 0.5) * itemWidth
-    },
-    100);
+    let thumbSlider = document.querySelector(".thumb-slider");
+    let thumbSlide = document.querySelector(".thumb-slide");
+    let itemWidth = thumbSlide.offsetWidth + 2*thumbSlide.offsetLeft;
+    let adjustment =  thumbSlider.offsetWidth / itemWidth / 2;
+
+    let currentScrollValue = thumbSlider.scrollLeft;
+    let adjustValue = ((index - adjustment + 0.5) * itemWidth);
+
+    adjustValue = (adjustValue - currentScrollValue) / 10;
+    for (let i = 1; i <= 10; i++) {
+      setTimeout(() => {
+        thumbSlider.scrollLeft = currentScrollValue + i*adjustValue;
+      }, i * 10);
+    }
   }
 
   onScrollLeft() {
-    let itemWidth = $(".thumb-slide").outerWidth() + 2*parseInt($(".thumb-slide").css('marginLeft'));
-    $(".thumb-slider").animate({
-      scrollLeft: $(".thumb-slider").scrollLeft() - itemWidth
-    },
-    1);
+    let thumbSlide = document.querySelector(".thumb-slide");
+    let itemWidth = thumbSlide.offsetWidth + 2*thumbSlide.offsetLeft;
+    document.querySelector(".thumb-slider").scrollLeft -= itemWidth;
     this.timer = setTimeout(this.onScrollLeft, 50);
   }
 
   onScrollRight() {
-    let itemWidth = $(".thumb-slide").outerWidth() + 2*parseInt($(".thumb-slide").css('marginLeft'));
-    $(".thumb-slider").animate({
-      scrollLeft: $(".thumb-slider").scrollLeft() + itemWidth
-    },
-    1);
+    let thumbSlide = document.querySelector(".thumb-slide");
+    let itemWidth = thumbSlide.offsetWidth + 2*thumbSlide.offsetLeft;
+    document.querySelector(".thumb-slider").scrollLeft += itemWidth;
     this.timer = setTimeout(this.onScrollRight, 50);
   }
 
@@ -94,30 +97,34 @@ class Thumbnail extends React.Component {
     const {
       items,
     } = this.props;
+
     const {
       activeIndex,
     } = this.state;
+
     return (
       <div className='thumb-slider-wrap'>
-      <RiArrowLeftSFill className={'thumb-left-btn'}
-        onMouseDown={this.onScrollLeft}
-        onMouseUp={this.onStopScroll}/>
-      <div className='thumb-slider'>
-        {items.map((item, index) => {
-          return (
-            <div
-              className={index === activeIndex ? 'thumb-slide active' : 'thumb-slide'}
-              key={index}
-              onClick={() => this.onThumbClick(index)}
-            >
-              <Item item={item} itemClass={'thumb-item'} />
-            </div>
-          );
-        })}
-      </div>
-      <RiArrowRightSFill className={'thumb-right-btn'}
-        onMouseDown={this.onScrollRight}
-        onMouseUp={this.onStopScroll}/>
+        <button className={'thumb-btn thumb-left-btn'}
+          onMouseDown={this.onScrollLeft}
+          onMouseUp={this.onStopScroll}>
+          <img src={arrowL}/>
+        </button>
+        <div className='thumb-slider'>
+          {items.map((item, index) => {
+            return (
+              <div className={index === activeIndex ? 'thumb-slide active' : 'thumb-slide'}
+                key={index}
+                onClick={() => this.onThumbClick(index)}>
+                <Item item={item} itemClass={'thumb-item'} />
+              </div>
+            );
+          })}
+        </div>
+        <button className={'thumb-btn thumb-right-btn'}
+          onMouseDown={this.onScrollRight}
+          onMouseUp={this.onStopScroll}>
+          <img src={arrowR}/>
+        </button>
       </div>
     );
   };

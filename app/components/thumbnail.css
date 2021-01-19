@@ -59,34 +59,34 @@
   object-fit: cover;
 }
 
-.carousel .thumb-slider-wrap .thumb-left-btn {
-  font-size: 4rem;
+.carousel .thumb-slider-wrap .thumb-btn {
   color: #000;
   z-index: 10;
   cursor: pointer;
   user-select: none;
-  width: 35px;
-  height: 58px;
+  width: 25px;
+  height: 60px;
   background: rgba(62, 150, 169, 1);
+  margin: 0px auto;
+  border: none;
+  outline-style: none;
+}
+
+.carousel .thumb-slider-wrap .thumb-btn img {
+  width: 14px;
+}
+
+.carousel .thumb-slider-wrap .thumb-left-btn {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  margin: 1px auto;
 }
 
 .carousel .thumb-slider-wrap .thumb-right-btn {
-  font-size: 4rem;
-  color: #000;
-  z-index: 10;
-  cursor: pointer;
-  user-select: none;
-  width: 35px;
-  height: 58px;
-  background: rgba(62, 150, 169, 1);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  margin: 1px auto;
 }
 
 .carousel .thumb-slider-wrap .thumb-right-btn:hover, .carousel .thumb-slider-wrap .thumb-left-btn:hover {
   color: blue;
+  background: rgba(2, 204, 247, 0.8);
 }
