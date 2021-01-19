@@ -60,22 +60,20 @@
 }
 
 .carousel .thumb-slider-wrap .thumb-btn {
-  font-size: 1rem;
   color: #000;
   z-index: 10;
   cursor: pointer;
   user-select: none;
-  width: 35px;
-  height: 58px;
+  width: 25px;
+  height: 60px;
   background: rgba(62, 150, 169, 1);
-  margin: 1px auto;
+  margin: 0px auto;
   border: none;
   outline-style: none;
 }
 
 .carousel .thumb-slider-wrap .thumb-btn img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 14px;
 }
 
 .carousel .thumb-slider-wrap .thumb-left-btn {
@@ -90,5 +88,5 @@
 
 .carousel .thumb-slider-wrap .thumb-right-btn:hover, .carousel .thumb-slider-wrap .thumb-left-btn:hover {
   color: blue;
-  background: rgba(82, 170, 169, 1);
+  background: rgba(2, 204, 247, 0.8);
 }
