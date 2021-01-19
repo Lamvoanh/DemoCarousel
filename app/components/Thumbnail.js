@@ -2,7 +2,6 @@
  * this component display the thumbnail of the carousel
  */
 import React from 'react';
-import { RiArrowLeftSFill, RiArrowRightSFill } from 'react-icons/ri';
 import Item from './Item';
 import './thumbnail.css';
 import arrowL from './imgs/thumb-arrow-l.png';

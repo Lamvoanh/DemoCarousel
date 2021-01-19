@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import Item from './Item';
 import Thumbnail from './Thumbnail';
 import './multi-carousel.css';
@@ -240,9 +239,7 @@ class MultiCarousel extends React.Component {
           onMouseLeave={this.onMouseLeave}>
           {items.map((item, index) => {
             return (
-              <div
-                className={'slide'}
-                key={index}>
+              <div className={'slide'} key={index}>
                 <Item item={item} itemClass={'item'} />
               </div>
             );
