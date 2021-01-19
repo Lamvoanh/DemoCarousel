@@ -42,7 +42,6 @@ class Thumbnail extends React.Component {
 
   // When compnent updated
   componentDidUpdate(prevProps) {
-
     if(this.state.activeIndex !== this.props.activeIndex) {
       this.setState({activeIndex: this.props.activeIndex});
       this.adjustScroll(this.props.activeIndex);
@@ -99,9 +98,11 @@ class Thumbnail extends React.Component {
     const {
       items,
     } = this.props;
+
     const {
       activeIndex,
     } = this.state;
+
     return (
       <div className='thumb-slider-wrap'>
         <button className={'thumb-btn thumb-left-btn'}
@@ -112,8 +113,7 @@ class Thumbnail extends React.Component {
         <div className='thumb-slider'>
           {items.map((item, index) => {
             return (
-              <div
-                className={index === activeIndex ? 'thumb-slide active' : 'thumb-slide'}
+              <div className={index === activeIndex ? 'thumb-slide active' : 'thumb-slide'}
                 key={index}
                 onClick={() => this.onThumbClick(index)}>
                 <Item item={item} itemClass={'thumb-item'} />

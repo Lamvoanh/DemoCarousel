@@ -35,7 +35,6 @@ class MultiCarousel extends React.Component {
     this.onMouseLeave = this.onMouseLeave.bind(this);
     this.dragItem = this.dragItem.bind(this);
 
-
     let activeIdx = !activeIndex ? 0 : activeIndex;
     // init component state
     let items = React.Children.toArray(children);
@@ -210,7 +209,6 @@ class MultiCarousel extends React.Component {
     this.onTouchEnd();
   }
 
-
   render() {
     const {
       items,
@@ -250,7 +248,9 @@ class MultiCarousel extends React.Component {
             );
           })}
         </section>
-        <Thumbnail items={items} activeIndex={this.getActualActiveIndex()} doActiveItem={this.doActiveItem} />
+        <Thumbnail items={items}
+          activeIndex={this.getActualActiveIndex()}
+          doActiveItem={this.doActiveItem} />
       </div>
     );
   }
