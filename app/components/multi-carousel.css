@@ -4,27 +4,24 @@
   margin: auto;
   touch-action: none;
 }
-
-.carousel .left-btn {
+.carousel .btn {
   position: absolute;
   top: 40%;
-  left: 20px;
   font-size: 5rem;
   color: #000;
   z-index: 10;
   cursor: pointer;
   user-select: none;
+  background: none;
+  border: none;
+  outline-style: none;
+}
+.carousel .left-btn {
+  left: 20px;
 }
 
 .carousel .right-btn {
-  position: absolute;
-  top: 40%;
   right: 20px;
-  font-size: 5rem;
-  color: #000;
-  z-index: 10;
-  cursor: pointer;
-  user-select: none;
 }
 
 .carousel .right-btn:hover, .carousel .left-btn:hover {

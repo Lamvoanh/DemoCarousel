@@ -7,7 +7,6 @@ import React from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import Item from './Item';
 import Thumbnail from './Thumbnail';
-import $ from 'jquery';
 import './multi-carousel.css';
 
 class MultiCarousel extends React.Component {
@@ -22,6 +21,7 @@ class MultiCarousel extends React.Component {
 
     // binding component fucntion
     this.doActiveItem = this.doActiveItem.bind(this);
+    this.getActualActiveIndex = this.getActualActiveIndex.bind(this);
     this.nextItem = this.nextItem.bind(this);
     this.prevItem = this.prevItem.bind(this);
     this.calcCarouselTransform = this.calcCarouselTransform.bind(this);
@@ -94,7 +94,17 @@ class MultiCarousel extends React.Component {
       endSwipePoint: 0,
     });
     // pause playing video
-    setTimeout(() => {$('video').trigger('pause');}, 500);
+    setTimeout(() => {
+      document.querySelectorAll('video').forEach(video => video.pause());
+    }, 500);
+  }
+
+  getActualActiveIndex(index) {
+    let actualIndex = this.state.activeIndex % this.state.items.length;
+    if(actualIndex < 0) {
+      actualIndex += this.state.items.length;
+    }
+    return actualIndex;
   }
 
   // view next item
@@ -119,21 +129,23 @@ class MultiCarousel extends React.Component {
   // calculate the transform for each item
   calcItemTransform() {
     let itemLength = this.state.items.length;
-    $('.carousel .main-slider .slide').each(function(index, elm ) {
+    let slides = document.querySelectorAll('.carousel .main-slider .slide');
+    slides.forEach((elm, index) => {
       let rotateY = index / itemLength * 360;
-      let translateZ = ($('.carousel .main-slider .slide').width() / 2) / Math.tan(Math.PI / itemLength);
+      let translateZ = (elm.offsetWidth / 2) / Math.tan(Math.PI / itemLength);
       elm.style.transform = 'rotateY(' + rotateY +'deg) translateZ( '+ translateZ + 'px)';
-    });
+    })
   }
 
   // The item flow the swiping when mouse down and drag or when touch swiping
   dragItem() {
     let itemLength = this.state.items.length;
-    let r = ($('.carousel .main-slider .slide').width() / 2) / Math.tan(Math.PI / itemLength);
+    let slide = document.querySelectorAll('.carousel .main-slider .slide')[0];
+    let r = (slide.offsetWidth / 2) / Math.tan(Math.PI / itemLength);
     let rotateY = this.state.activeIndex / itemLength * -360;
     rotateY -= (this.startSwipePoint - this.endSwipePoint)*180 / (Math.PI * r)
-    $('.carousel .main-slider').css('transition', 'transform 1ms');
-    $('.carousel .main-slider').css('transform', 'rotateY(' + rotateY +'deg)');
+    document.querySelector('.carousel .main-slider').style.transition = 'transform 1ms';
+    document.querySelector('.carousel .main-slider').style.transform = 'rotateY(' + rotateY +'deg)';
   }
 
   // handle touch event
@@ -155,7 +167,7 @@ class MultiCarousel extends React.Component {
 
   // handle touch and swipe, detemine the swipe direction
   onTouchEnd() {
-    $('.carousel .main-slider').css('transition', 'transform 500ms');
+    document.querySelector('.carousel .main-slider').style.transition = 'transform 500ms';
     if (this.isSwipe) {
       if (this.startSwipePoint < this.endSwipePoint) {
         // if swipe from left to right
@@ -215,8 +227,10 @@ class MultiCarousel extends React.Component {
 
     return (
       <div className='carousel' style={styleProps}>
-        <BsChevronCompactLeft className={showBtn ? 'left-btn' : 'left-btn hide'} onClick={this.prevItem} />
-        <BsChevronCompactRight className={showBtn ? 'right-btn' : 'right-btn hide'} onClick={this.nextItem} />
+        <button className={showBtn ? 'btn left-btn' : 'btn left-btn hide'}
+          onClick={this.prevItem} >&#10094;</button>
+        <button className={showBtn ? 'btn right-btn' : 'btn right-btn hide'}
+          onClick={this.nextItem} >&#10095;</button>
         <section className='main-slider'
           style={this.calcCarouselTransform(activeIndex)}
           onTouchStart={this.onTouchStart}
@@ -225,20 +239,18 @@ class MultiCarousel extends React.Component {
           onMouseDown={this.onMouseDown}
           onMouseMove={this.onMouseMove}
           onMouseUp={this.onMouseUp}
-          onMouseLeave={this.onMouseLeave}
-          >
+          onMouseLeave={this.onMouseLeave}>
           {items.map((item, index) => {
             return (
               <div
                 className={'slide'}
-                key={index}
-              >
+                key={index}>
                 <Item item={item} itemClass={'item'} />
               </div>
             );
           })}
         </section>
-        <Thumbnail items={items} activeIndex={this.state.activeIndex % items.length} doActiveItem={this.doActiveItem} />
+        <Thumbnail items={items} activeIndex={this.getActualActiveIndex()} doActiveItem={this.doActiveItem} />
       </div>
     );
   }

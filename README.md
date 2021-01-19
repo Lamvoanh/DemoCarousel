@@ -37,9 +37,7 @@ Node JS v15.5.1 and NPM v7.3.0
 
 > npm install --save-dev html-webpack-plugin
 
-> npm install --save-dev react-icons
-
-> npm install --save-dev jquery
+> npm install --save-dev url-loader
 
 ### Create webpack.config.js
 ```javascript
